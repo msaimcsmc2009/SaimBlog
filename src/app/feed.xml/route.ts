@@ -1,6 +1,8 @@
 import { getAllPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/site-config";
 
+export const dynamic = "force-static";
+
 const escapeXml = (value: string) =>
   value
     .replace(/&/g, "&amp;")

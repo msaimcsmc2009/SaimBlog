@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
@@ -40,25 +41,13 @@ export function ContactForm() {
     if (Object.keys(nextErrors).length > 0) return;
 
     setSubmitting(true);
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}));
-        throw new Error(data.error ?? "Mesaj gönderilemedi.");
-      }
-
-      toast.success("Mesajın gönderildi. En kısa sürede dönüş yapacağım.");
-      setValues({ name: "", email: "", message: "" });
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Bir şeyler ters gitti.");
-    } finally {
-      setSubmitting(false);
-    }
+    const subject = encodeURIComponent(`${siteConfig.name} · Yeni mesaj (${values.name})`);
+    const body = encodeURIComponent(
+      `${values.message}\n\n— ${values.name} (${values.email})`
+    );
+    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
+    setSubmitting(false);
+    toast.success("E-posta uygulaman açıldı, mesajını oradan gönderebilirsin.");
   }
 
   return (

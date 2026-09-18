@@ -3,6 +3,7 @@ import { Mail } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { CopyButton } from "@/components/ui/copy-button";
 import { siteConfig } from "@/lib/site-config";
+import { withBasePath } from "@/lib/base-path";
 import { GithubIcon, LinkedinIcon, XIcon } from "@/components/icons/social-icons";
 
 const socialLinks = [
@@ -56,7 +57,7 @@ export function Footer() {
                 ))}
                 <li>
                   <a
-                    href="/feed.xml"
+                    href={withBasePath("/feed.xml")}
                     target="_blank"
                     rel="noreferrer noopener"
                     className="text-sm text-fg-muted transition-colors hover:text-fg"

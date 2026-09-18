@@ -12,6 +12,17 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Statik export çıktısı (GitHub Pages için köke kopyalanır):
+    "_next/**",
+    "blog/**",
+    "projeler/**",
+    "hakkimda/**",
+    "iletisim/**",
+    "404/**",
+    "_not-found/**",
+    "*.html",
+    "*.txt",
+    "feed.xml",
   ]),
 ]);
 

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { withBasePath } from "@/lib/base-path";
 
 function hashSeed(input: string) {
   let hash = 0;
@@ -30,7 +31,7 @@ export function ProjectCover({
         )}
       >
         <Image
-          src={image}
+          src={withBasePath(image)}
           alt={title || "Proje görseli"}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"

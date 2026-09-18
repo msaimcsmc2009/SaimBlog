@@ -6,6 +6,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { siteConfig } from "@/lib/site-config";
+import { withBasePath } from "@/lib/base-path";
 
 export const metadata: Metadata = {
   title: "Hakkımda",
@@ -39,7 +40,7 @@ export default function AboutPage() {
           <Reveal>
             <div className="relative isolate aspect-[4/5] w-full max-w-[340px] overflow-hidden rounded-xl border border-border bg-bg-elevated">
               <Image
-                src="/saimblogpp.jpg"
+                src={withBasePath("/saimblogpp.jpg")}
                 alt={`${siteConfig.fullName} portresi`}
                 fill
                 sizes="(max-width: 768px) 100vw, 340px"

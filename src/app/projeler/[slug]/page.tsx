@@ -10,6 +10,7 @@ import { ShareButtons } from "@/components/ui/share-buttons";
 import { GithubIcon } from "@/components/icons/social-icons";
 import { getAllProjects, getProjectBySlug } from "@/lib/projects";
 import { siteConfig } from "@/lib/site-config";
+import { withBasePath } from "@/lib/base-path";
 
 export function generateStaticParams() {
   return getAllProjects().map((project) => ({ slug: project.slug }));
@@ -118,7 +119,7 @@ export default async function ProjectDetailPage({
           <Reveal delay={0.12} className="mt-12">
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-bg-elevated">
               <Image
-                src={project.image}
+                src={withBasePath(project.image)}
                 alt={project.title || "Proje görseli"}
                 fill
                 priority

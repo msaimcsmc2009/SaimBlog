@@ -3,6 +3,8 @@ import { siteConfig } from "@/lib/site-config";
 import { getAllProjects } from "@/lib/projects";
 import { getAllPosts } from "@/lib/blog";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = ["", "/hakkimda", "/projeler", "/blog", "/iletisim"].map((path) => ({
     url: `${siteConfig.url}${path}`,
