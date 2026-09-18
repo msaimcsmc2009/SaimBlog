@@ -41,6 +41,8 @@ export function Navbar() {
     setOpen(false);
   }
 
+  const isBlogPost = /^\/blog\/[^/]+\/?$/.test(pathname);
+
   useEffect(() => {
     const onScroll = () => {
       const currentY = window.scrollY;
@@ -140,7 +142,7 @@ export function Navbar() {
         </button>
       </Container>
 
-      {pathname.startsWith("/blog/") && pathname !== "/blog" && <ReadingProgress />}
+      {isBlogPost && <ReadingProgress />}
       </motion.header>
 
       <AnimatePresence>
