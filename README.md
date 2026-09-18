@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Saim — Kişisel Blog & Portfolyo
 
-## Getting Started
+Yazılım geliştirici olarak fikirleri çalışan yazılıma dönüştürdüğüm projeleri, öğrenim günlüklerimi ve iletişim kanallarımı barındıran bloklama sitesi.
 
-First, run the development server:
+## Teknolojiler
+
+- [Next.js 16](https://nextjs.org) (App Router, Turbopack)
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- MDX (blog yazıları)
+- Framer Motion (animasyonlar)
+
+## Geliştirme
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`http://localhost:3000` adresinde açılır.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Komut          | Açıklama                        |
+| -------------- | ------------------------------- |
+| `npm run dev`  | Geliştirme sunucusunu başlat    |
+| `npm run build`| Üretim build'i al              |
+| `npm start`    | Build'i sun                     |
+| `npm run lint` | ESLint ile kodu denetle         |
 
-## Learn More
+## Proje yapısı
 
-To learn more about Next.js, take a look at the following resources:
+```
+content/blog/          Blog yazıları (MDX, front-matter: title/excerpt/date/category)
+public/fotolar/        Proje görselleri
+src/app/               Sayfa rotaları (App Router)
+src/components/        UI ve bölüm bileşenleri
+src/lib/site-config.ts Site bilgileri (ad, e-posta, sosyal bağlantılar, URL)
+src/lib/projects.ts    Proje listesi (slug, görsel, linkler, hikâye)
+src/lib/blog.ts        MDX içerik okuma / okuma süresi
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## İçerik ekleme
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Blog yazısı:** `content/blog/` altına `.mdx` dosyası ekle (örn. `yeni-yazi.mdx`).
+- **Proje:** `src/lib/projects.ts` listesine kayıt ekle.
+- **Site bilgileri:** `src/lib/site-config.ts` üzerinden güncelle.

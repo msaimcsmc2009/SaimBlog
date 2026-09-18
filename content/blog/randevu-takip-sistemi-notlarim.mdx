@@ -1,0 +1,31 @@
+---
+title: "Randevu Takip Sistemi'ni Nasıl Kodladım: Öğrendiklerim"
+excerpt: "Yerel işletmelerin randevularını tek sayfada topladığı bir sistemi sıfırdan kurarken aldığım kararlar ve Supabase ile kayıt/giriş kurmanın incelikleri."
+date: "2026-05-14"
+category: "Proje Günlükleri"
+---
+
+Randevu Takip Sistemi fikri, bir kuaförün randevu defterini not kağıtlarıyla yönetirken yaşadığı karmaşayı görünce çıktı. Berber, kuaför, klinik ya da güzellik salonu fark etmez — hepsi aynı sorunu yaşıyordu: randevuları takvimde değil, karışık notlarda tutmak. Bu yazıda sistemi kurarken öğrendiklerimi paylaşıyorum.
+
+## Gün 1-2: Kapsamı küçültmek
+
+İlk planım gene çok büyüktü: ekip yönetimi, toplu bildirimler, mobil uygulama... Hepsini aynı anda yapmaya çalışınca hiçbirini bitiremeyeceğimi biliyordum. Kapsamı şu üç şeye indirdim:
+
+1. İşletmenin hesap açıp çalışma saatlerini tanımlaması
+2. Hizmetleri süre ve fiyatıyla birlikte listelemesi
+3. Müşterinin müsait saatleri görüp saniyeler içinde randevu alması
+
+Geri kalan her şeyi bir "sonraki sürüm" listesine yazıp unuttum — en azından ilk hafta için.
+
+## Gün 3-4: Supabase ile kayıt/giriş kurmak
+
+Bu, haftanın en öğretici kısmıydı. Kullanıcı kayıt ve giriş (authentication) sistemini Supabase üzerinden kurdum. Klasik formül: işletme adı, e-posta ve şifre ile hesap oluştur, giriş yap.
+
+Asıl zor kısım ise en kritik karardı: her işletmenin randevularını kendi hesabıyla güvenli şekilde veritabanında saklamak. Bir kullanıcının randevularının başka bir kullanıcının ekranında görünmememesi için verileri kullanıcı kimliğiyle eşleştirmeyi baştan doğru kurmam gerekiyordu. Veri izolasyonunun (data isolation) bir SaaS uygulamasında neden bu kadar belirleyici olduğunu ilk elden gördüm.
+
+## Gün 5-6: Müsaitlik hesaplama mantığı
+
+Müşteri hizmeti seçince hangi saatlerin boş olduğunu göstermek asıl zor kısımdı. Her hizmetin süresi ve fiyatı vardı; çalışma saatleri içinde bu sürelerin üst üste binmemesi (çakışma olmaması) gerekiyordu. Müsaitlik otomatik hesaplanıyor: alınan her randevu takvimi daraltıyor, boş kalan saatler otomatik düşüyor.
+
+Basit bir kural koydum: bir saat dilimi ya boştur ya doludur, ara durum yoktur. Mükemmel değil ama anlaşılır ve test edilebilir bir mantık — bu hafta öğrendiğim en değerli ders buydu.
+

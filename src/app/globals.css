@@ -1,26 +1,161 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #0a0b0a;
+  --color-bg-elevated: #131513;
+  --color-bg-elevated-2: #191c18;
+  --color-border: #232622;
+  --color-border-strong: #2e322d;
+
+  --color-fg: #edefec;
+  --color-fg-muted: #96a096;
+  --color-fg-subtle: #5c645d;
+
+  --color-accent: #c9f13d;
+  --color-accent-strong: #d9ff5c;
+  --color-accent-foreground: #0a0b0a;
+  --color-accent-dim: rgb(201 241 61 / 0.1);
+  --color-accent-border: rgb(201 241 61 / 0.35);
+
+  --color-danger: #ff6b5e;
+  --color-danger-dim: rgb(255 107 94 / 0.12);
+
+  --color-status-live: #c9f13d;
+  --color-status-live-dim: rgb(201 241 61 / 0.12);
+  --color-status-building: #f2b84b;
+  --color-status-building-dim: rgb(242 184 75 / 0.12);
+  --color-status-mvp: #4fd1ae;
+  --color-status-mvp-dim: rgb(79 209 174 / 0.12);
+  --color-status-concept: #96a096;
+  --color-status-concept-dim: rgb(150 160 150 / 0.1);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4rem;
+  --space-7: 6rem;
+}
+
+[data-theme="light"] {
+  --color-bg: #fafaf8;
+  --color-bg-elevated: #ffffff;
+  --color-bg-elevated-2: #f2f3f0;
+  --color-border: #e4e6e1;
+  --color-border-strong: #d1d4cd;
+
+  --color-fg: #14150f;
+  --color-fg-muted: #565e54;
+  --color-fg-subtle: #9aa196;
+
+  --color-accent-foreground: #0a0b0a;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--color-bg);
+  --color-bg-elevated: var(--color-bg-elevated);
+  --color-bg-elevated-2: var(--color-bg-elevated-2);
+  --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+
+  --color-fg: var(--color-fg);
+  --color-fg-muted: var(--color-fg-muted);
+  --color-fg-subtle: var(--color-fg-subtle);
+
+  --color-accent: var(--color-accent);
+  --color-accent-strong: var(--color-accent-strong);
+  --color-accent-foreground: var(--color-accent-foreground);
+  --color-accent-dim: var(--color-accent-dim);
+  --color-accent-border: var(--color-accent-border);
+
+  --color-danger: var(--color-danger);
+  --color-danger-dim: var(--color-danger-dim);
+
+  --color-status-live: var(--color-status-live);
+  --color-status-live-dim: var(--color-status-live-dim);
+  --color-status-building: var(--color-status-building);
+  --color-status-building-dim: var(--color-status-building-dim);
+  --color-status-mvp: var(--color-status-mvp);
+  --color-status-mvp-dim: var(--color-status-mvp-dim);
+  --color-status-concept: var(--color-status-concept);
+  --color-status-concept-dim: var(--color-status-concept-dim);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@keyframes gradient-pan {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
