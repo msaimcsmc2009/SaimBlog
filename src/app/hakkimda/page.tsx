@@ -83,7 +83,7 @@ export default function AboutPage() {
             <Reveal delay={0.08}>
               <h3 className="font-display text-xl font-semibold text-fg">Şu an neler yapıyorum</h3>
               <p className="mt-3 max-w-2xl leading-relaxed text-fg-muted">
-                Lise son sınıftayım ve okul dışındaki zamanımın büyük kısmını kendi projelerimi
+                Okul dışındaki zamanımın büyük kısmını kendi projelerimi
                 kodlayarak ve projeler üretmeye çalışarak geçirmeye çalışıyorum. Şu anda geliştirmekte olduğum sitelerime zaman ayırıyorum.
               </p>
             </Reveal>

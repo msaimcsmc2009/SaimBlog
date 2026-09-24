@@ -1,4 +1,4 @@
-export const basePath = "/SaimBlog";
+export const basePath = "";
 
 const EXTERNAL = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#|data:|blob:)/i;
 

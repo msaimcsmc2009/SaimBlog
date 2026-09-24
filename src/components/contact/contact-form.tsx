@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/lib/site-config";
+import { withBasePath } from "@/lib/base-path";
 import { cn } from "@/lib/utils";
 
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
@@ -30,36 +30,51 @@ export function ContactForm() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    if ((formData.get("website") as string)?.trim()) {
-      toast.success("Mesajın gönderildi. En kısa sürede dönüş yapacağım.");
-      setValues({ name: "", email: "", message: "" });
-      return;
-    }
+    const contactExtra = ((formData.get("contact_extra") as string) ?? "").trim();
 
     const nextErrors = validate(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
     setSubmitting(true);
-    const subject = encodeURIComponent(`${siteConfig.name} · Yeni mesaj (${values.name})`);
-    const body = encodeURIComponent(
-      `${values.message}\n\n— ${values.name} (${values.email})`
-    );
-    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
-    setSubmitting(false);
-    toast.success("E-posta uygulaman açıldı, mesajını oradan gönderebilirsin.");
+    try {
+      const res = await fetch(withBasePath("/api/contact"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          message: values.message,
+          contact_extra: contactExtra,
+        }),
+      });
+      const data = (await res.json().catch(() => null)) as
+        | { ok?: boolean; error?: string }
+        | null;
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error ?? "Mesajın gönderilemedi, tekrar dene.");
+      }
+      setValues({ name: "", email: "", message: "" });
+      toast.success("Mesajın gönderildi. En kısa sürede dönüş yapacağım.");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Mesajın gönderilemedi.";
+      toast.error(message === "Failed to fetch" ? "Sunucuya ulaşılamıyor." : message);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
-      <div aria-hidden className="sr-only">
-        <label htmlFor="website">Bu alanı boş bırak</label>
+      <div aria-hidden className="hidden">
+        <label htmlFor="contact_extra">Bu alanı boş bırak</label>
         <input
-          id="website"
-          name="website"
+          id="contact_extra"
+          name="contact_extra"
           type="text"
           tabIndex={-1}
           autoComplete="off"
+          readOnly
         />
       </div>
 

@@ -1,0 +1,20 @@
+name = "saim-blogsite"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "./out"
+
+# Cloudflare gizli değişkenleri:
+#   - ADMIN_PASSWORD: admin paneli şifresi
+#   - SESSION_SECRET: oturum token imzalama anahtarı (uzun ve rastgele)
+# Dashboard'dan (Workers & Pages -> Proje -> Settings -> Variables and Secrets) veya:
+#   npx wrangler pages secret put ADMIN_PASSWORD
+#   npx wrangler pages secret put SESSION_SECRET
+
+# D1 bağlantısı.
+[[d1_databases]]
+binding = "DB"
+database_name = "contact-messages"
+database_id = "b2337ff7-ff99-47f6-bf32-229394d3112c"
+
+# Üretimde API'ye izin verilecek ek origin (örn. kendi alan adın):
+# [vars]
+# ALLOWED_ORIGINS = "https://saim.dev"

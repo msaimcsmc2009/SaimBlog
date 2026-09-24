@@ -12,6 +12,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    ".wrangler/**",
     // Statik export çıktısı (GitHub Pages için köke kopyalanır):
     "_next/**",
     "blog/**",
